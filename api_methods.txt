@@ -1,0 +1,15 @@
+API always provide response in JSON (Javascript Object Notation)
+
+API Methods:
+
+1. GET - get method is used to get data from API
+- zero parameter 
+(http://127.0.0.1:8000/display-all-students)
+
+- query parameter 
+(http://127.0.0.1:8000/display-student-details?id=1&name=ishika&address=mumbai)
+
+- path parameter 
+(http://127.0.0.1:8000/get-student-by-id-path/2,
+)http://127.0.0.1:8000/display-student-details-path/3/Komal/Bhayander)
+
