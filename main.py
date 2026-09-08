@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,Body
 
 # create object of FastApi
 obj = FastAPI()
@@ -67,6 +67,40 @@ def getStudentDetailsPath(id:int,name:str,address:str):
 def getStudentDetailsPathOptional(id:int,name:str="",address:str=""):
     student_data = {"id":id,"student_name":name,"student_address":address}
     return {"data":student_data}
+
+@obj.get("/user-login/{username}/{password}")
+def userLoginUsingGet(username:str,password:str):
+    if username=="admin" and password=="pass@123":
+        return {"message":"Login Successfull"}
+    else:
+        return {"error":"Invalid Username or password"}
+
+@obj.post("/auth")
+def userLoginUsingPost(username:str=Body(...),password:str=Body(...)):
+    if username=="admin" and password=="pass@123":
+        return {"message":"Login Successfull"}
+    else:
+        return {"error":"Invalid Username or password"}
+
+@obj.post("/insert-student")
+def insertStudentData(id:int=Body(...),name:str=Body(...),address:str=Body(...)):
+    message = "Record inserted for "+str(id)
+    return {"message":message}
+
+@obj.put("/update-student")
+def updateStudentData(id:int=Body(...),name:str=Body(...),address:str=Body(...)):
+    message = "Record updated for "+str(id)
+    return {"message":message}
+
+@obj.patch("/update-small-student")
+def updateSmallStudentData(id:int=Body(...),name:str=Body(...)):
+    message = "Record updated for "+str(id)
+    return {"message":message}
+
+@obj.delete("/delete-student/{id}")
+def deleteStudentData(id:int):
+    message = "Record deleted for "+str(id)
+    return {"message":message}
 
 
 

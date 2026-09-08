@@ -13,3 +13,6 @@ API Methods:
 (http://127.0.0.1:8000/get-student-by-id-path/2,
 )http://127.0.0.1:8000/display-student-details-path/3/Komal/Bhayander)
 
+2. POST - It is used to perform insert or pass sensative information through request
+we can not pass values through url likr get. we will pass information through request body
+
