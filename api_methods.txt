@@ -16,3 +16,14 @@ API Methods:
 2. POST - It is used to perform insert or pass sensative information through request
 we can not pass values through url likr get. we will pass information through request body
 
+
+Models:
+
+Is is a class collections of attributes
+
+Type of models:
+1. python model
+2. database model
+
+pydantic is a library it contains BaseModel as a class, BaseModel is used to convert class into model
+

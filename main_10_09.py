@@ -1,24 +1,8 @@
 from fastapi import FastAPI,Body
 from dboperation import getAllData,insert,getSingleData,delete,update
-from pydantic import BaseModel
 
 # create object of FastApi
 obj = FastAPI()
-
-class RegisterRequest(BaseModel):
-    name:str
-    email:str
-    mobile:str
-    password:str
-    role:str
-
-class UpdatePasswordRequest(BaseModel):
-    username:str
-    password:str
-
-class AuthRequest(BaseModel):
-    id:int
-    password:str
 
 @obj.get("/get-all-users")
 def getAllUsers():
@@ -44,9 +28,8 @@ def getAllUsers():
         return {"data":"something went wrong"}
 
 @obj.post("/register")
-def registerNewUser(request:RegisterRequest):
-    print("name:",request.name)
-    query = f"INSERT INTO user_login (name, email, mobile, password, role) VALUES('{request.name}', '{request.email}', '{request.mobile}', '{request.password}', '{request.role}')"
+def registerNewUser(name:str=Body(...),email:str=Body(...),mobile:str=Body(...),password:str=Body(...),role:str=Body(...)):
+    query = f"INSERT INTO user_login (name, email, mobile, password, role) VALUES('{name}', '{email}', '{mobile}', '{password}', '{role}')"
     db_response = insert(query)
     if db_response is not None:
         return {"data":"record inserted succesfully"}
@@ -80,8 +63,8 @@ def deleteUser(id):
         return {"data":"something went wrong"}
 
 @obj.put("/update-user")
-def updatePassword(request:UpdatePasswordRequest):
-    query = f"update user_login set password='{request.password}' where id = {request.id}"
+def updatePassword(id:int=Body(...),password:str=Body(...)):
+    query = f"update user_login set password='{password}' where id = {id}"
     db_response = update(query)
     if db_response is not None:
         return {"data":"record updated succesfully"}
@@ -89,8 +72,8 @@ def updatePassword(request:UpdatePasswordRequest):
         return {"data":"something went wrong"}
 
 @obj.post("/auth")
-def userLogin(request:UpdatePasswordRequest):
-    query = f"select * from user_login where email='{request.username}' and password='{request.password}'"
+def userLogin(username:str=Body(...),password:str=Body(...)):
+    query = f"select * from user_login where email='{username}' and password='{password}'"
     db_response = getSingleData(query)
     if db_response is not None:
         return {"data":"Login Successfull"}
