@@ -43,10 +43,10 @@ def getSingleData(query):
 
 def getAllData(query):
     dbconnect = connection()
-    if dbconnect is not None:
+    if type(dbconnect).__name__=="Connection":
         cursor = dbconnect.cursor()
         cursor.execute(query)
         data = cursor.fetchall()
         return data
     else:
-        return None
+        return dbconnect

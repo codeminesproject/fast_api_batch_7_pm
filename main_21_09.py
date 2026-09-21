@@ -1,7 +1,6 @@
 from fastapi import FastAPI,Body
 from dboperation import getAllData,insert,getSingleData,delete,update
 from pydantic import BaseModel
-from fastapi.responses import JSONResponse
 
 # create object of FastApi
 obj = FastAPI()
@@ -25,7 +24,6 @@ class AuthRequest(BaseModel):
 def getAllUsers():
     query = "select * from user_login"
     db_response = getAllData(query)
-    print(type(db_response))
     if db_response is not None:
         if len(db_response)>0:
             user_list = []
@@ -39,11 +37,11 @@ def getAllUsers():
                     "role":data[5]
                 }
                 user_list.append(response)
-            return JSONResponse(status_code=200,content={"data":user_list}) 
+            return {"data":user_list}
         else:
             return {"data":"no record found"}
     else:
-        return JSONResponse(status_code=500,content={"data":"something went wrong"}) 
+        return {"data":"something went wrong"}
 
 @obj.post("/register")
 def registerNewUser(request:RegisterRequest):
@@ -70,7 +68,7 @@ def getUserByEmail(email):
                     }
         return {"data":response}
     else:
-        return {"data":"no records found"}
+        return {"data":"something went wrong"}
 
 @obj.delete("/delete-user")
 def deleteUser(id):

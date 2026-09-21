@@ -1,5 +1,6 @@
 import pymysql
 import config
+import CommonModule
 
 def connection():
     try:
@@ -9,4 +10,8 @@ def connection():
         else:
             return None
     except Exception as e:
-        return None
+        CommonModule.Error.type = type(e).__name__
+        CommonModule.Error.message = str(e)
+        CommonModule.Error.file_name = "dbconnection"
+        CommonModule.Error.function_name = "connection"
+        return CommonModule.Error
