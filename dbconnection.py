@@ -10,8 +10,9 @@ def connection():
         else:
             return None
     except Exception as e:
-        CommonModule.Error.type = type(e).__name__
-        CommonModule.Error.message = str(e)
-        CommonModule.Error.file_name = "dbconnection"
-        CommonModule.Error.function_name = "connection"
-        return CommonModule.Error
+        error_obj = CommonModule.Error()
+        error_obj.type = type(e).__name__
+        error_obj.message = str(e)
+        error_obj.file_name = "dbconnection"
+        error_obj.function_name = "connection"
+        return error_obj

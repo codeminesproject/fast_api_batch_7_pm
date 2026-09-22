@@ -3,43 +3,43 @@ from dbconnection import connection
 
 def insert(query):
     dbconnect = connection()
-    if dbconnect is not None:
+    if type(dbconnect).__name__=="Connection":
         cursor = dbconnect.cursor()
         cursor.execute(query)
         dbconnect.commit()
         return True
     else:
-        return None
+        return dbconnect
 
 def update(query):
     dbconnect = connection()
-    if dbconnect is not None:
+    if type(dbconnect).__name__=="Connection":
         cursor = dbconnect.cursor()
         cursor.execute(query)
         dbconnect.commit()
         return True
     else:
-        return None
+        return dbconnect
 
 def delete(query):
     dbconnect = connection()
-    if dbconnect is not None:
+    if type(dbconnect).__name__=="Connection":
         cursor = dbconnect.cursor()
         cursor.execute(query)
         dbconnect.commit()
         return True
     else:
-        return None
+        return dbconnect
 
 def getSingleData(query):
     dbconnect = connection()
-    if dbconnect is not None:
+    if type(dbconnect).__name__=="Connection":
         cursor = dbconnect.cursor()
         cursor.execute(query)
         data = cursor.fetchone()
         return data
     else:
-        return None
+        return dbconnect
 
 def getAllData(query):
     dbconnect = connection()
